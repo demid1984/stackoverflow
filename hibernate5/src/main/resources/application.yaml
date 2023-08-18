@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: hibernate5
+  datasource:
+    url: ${JDBC_URL}
+    username: ${JDBC_USER}
+    password: ${JDBC_PASSWORD}
+  jpa:
+    show-sql: true
+  liquibase:
+    change-log: classpath:db/changelog/changelog.xml
