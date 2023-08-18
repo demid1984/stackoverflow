@@ -6,14 +6,20 @@
     <changeSet author="Demid Zernov" id="1">
         <createProcedure catalogName="test_function">
             CREATE
-            OR REPLACE FUNCTION test_function(id varchar, OUT res_id varchar, OUT res_code int)
+            OR REPLACE FUNCTION test_function(
+                p_id varchar,
+                p_xml xml,
+                OUT res_id varchar,
+                OUT res_code int,
+                OUT res_xml xml
+            )
             language plpgsql as
             $$
             begin
             -- body
-                res_id := id;
+                res_id := p_id;
                 res_code := 5;
-                return;
+                res_xml := p_xml;
             end; $$
         </createProcedure>
     </changeSet>

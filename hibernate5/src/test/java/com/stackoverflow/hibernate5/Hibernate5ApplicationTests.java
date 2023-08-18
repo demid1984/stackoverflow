@@ -11,6 +11,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import java.sql.SQLException;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,11 +41,20 @@ class Hibernate5ApplicationTests {
     StoreProcedureCaller storeProcedureCaller;
 
     @Test
-    void contextLoads() {
+    void contextLoads() throws SQLException {
+        String xml = """
+                <note>
+                  <to>Tove</to>
+                  <from>Jani</from>
+                  <heading>Reminder</heading>
+                  <body>Don't forget me this weekend!</body>
+                </note>
+                """;
         String id = UUID.randomUUID().toString();
-        TestFunctionResult result = storeProcedureCaller.callTestFunction(id);
+        TestFunctionResult result = storeProcedureCaller.callTestFunction(id, xml);
         assertEquals(id, result.getId());
         assertEquals(5, result.getCode());
+        assertEquals(xml, result.getXml());
     }
 
 }

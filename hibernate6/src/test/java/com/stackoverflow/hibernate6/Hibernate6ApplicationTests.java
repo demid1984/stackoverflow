@@ -22,9 +22,18 @@ class Hibernate6ApplicationTests {
     @Test
     void contextLoads() {
         String id = UUID.randomUUID().toString();
-        TestFunctionResult result = storeProcedureCaller.callTestFunction(id);
+        String xml = """
+                <note>
+                  <to>Tove</to>
+                  <from>Jani</from>
+                  <heading>Reminder</heading>
+                  <body>Don't forget me this weekend!</body>
+                </note>
+                """;
+        TestFunctionResult result = storeProcedureCaller.callTestFunction(id, xml);
         assertEquals(id, result.getId());
         assertEquals(5, result.getCode());
+        assertEquals(xml, result.getXml());
     }
 
 

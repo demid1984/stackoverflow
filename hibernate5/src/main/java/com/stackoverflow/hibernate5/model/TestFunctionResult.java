@@ -7,4 +7,5 @@ public class TestFunctionResult {
 
     private String id;
     private int code;
+    private String xml;
 }
